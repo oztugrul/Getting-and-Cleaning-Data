@@ -2,7 +2,6 @@ library(reshape2)
 
 library(dplyr)
 
-
 setwd("C:/Users/asus/Desktop/Getting_and_Cleaning_Data")
 
 #Downloading Files
@@ -75,17 +74,11 @@ extracted_data$activities<-factor(extracted_data$activities)
 #4.Appropriately labels the data set with descriptive variable names.
 
 names(extracted_data)<-gsub("BodyBody","Body",names(extracted_data))
-
 names(extracted_data)<-gsub("mean","Mean",names(extracted_data))
-
 names(extracted_data)<-gsub("std","Std",names(extracted_data))
-
 names(extracted_data)<-gsub("gravity","Gravity",names(extracted_data))
-
 names(extracted_data)<-gsub("angle","Angle",names(extracted_data))
-
 names(extracted_data)<-gsub("\\.\\.\\.","\\.",names(extracted_data))
-
 names(extracted_data)<-gsub("\\.\\.","\\.",names(extracted_data))
 
 
