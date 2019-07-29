@@ -31,7 +31,7 @@ x_train<-read.table("./UCI HAR Dataset/train/X_train.txt",col.names=features$fea
 y_train<-read.table("./UCI HAR Dataset/train/y_train.txt")
 
 
-subject_test<-read.table("./UCI HAR Dataset/test/subject_test.txt",col.names=("subject"))
+subject_test<-read.table("./UCI HAR Dataset/test/subject_test.txt",col.names=c("subject"))
 
 x_test<-read.table("./UCI HAR Dataset/test/X_test.txt",col.names=features$feature_name)
 
