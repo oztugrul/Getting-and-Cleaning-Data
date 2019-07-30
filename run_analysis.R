@@ -1,5 +1,4 @@
 library(reshape2)
-
 library(dplyr)
 
 setwd("C:/Users/asus/Desktop/Getting_and_Cleaning_Data")
@@ -7,9 +6,7 @@ setwd("C:/Users/asus/Desktop/Getting_and_Cleaning_Data")
 #Downloading Files
 
 if(!file.exists("Dataset.zip")){
-
   fileUrl<-"https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
-  
   download.file(fileUrl,destfile="./Dataset.zip")
 }
 
@@ -20,23 +17,15 @@ if(!file.exists("Dataset")){
 #Getting all of the Data
 
 activity_labels<-read.table("./UCI HAR Dataset/activity_labels.txt")
-
 features<-read.table("./UCI HAR Dataset/features.txt",col.names=c("feature_code","feature_name"))
 
-
 subject_train<-read.table("./UCI HAR Dataset/train/subject_train.txt",col.names=c("subject"))
-
 x_train<-read.table("./UCI HAR Dataset/train/X_train.txt",col.names=features$feature_name)
-
 y_train<-read.table("./UCI HAR Dataset/train/y_train.txt")
 
-
 subject_test<-read.table("./UCI HAR Dataset/test/subject_test.txt",col.names=c("subject"))
-
 x_test<-read.table("./UCI HAR Dataset/test/X_test.txt",col.names=features$feature_name)
-
 y_test<-read.table("./UCI HAR Dataset/test/y_test.txt")
-
 
 
 #1- Merges the training and the test sets to create one data set.
@@ -57,7 +46,7 @@ names(complete_data)
 
 extracted_measurements<-names(complete_data[,grep(".*[Mm]ean.*|.*[Ss]td.*",names(complete_data))])
 
-#We add the first two columns which come from the subject and y variables and select them from the complete data.
+#Add the first two columns which come from the subject and y variables and select them from the complete data.
 
 extracted_data<-complete_data%>%select(subject,V1,extracted_measurements)
 
@@ -70,6 +59,7 @@ extracted_data<-extracted_data%>%mutate(activities=recode(activities,'1'="WALKIN
 '3'="WALKING_DOWNSTAIRS",'4'="SITTING",'5'="STANDING",'6'="LAYING"))
 
 extracted_data$activities<-factor(extracted_data$activities)
+
 
 #4.Appropriately labels the data set with descriptive variable names.
 
