@@ -1,0 +1,118 @@
+---
+title: "CodeBook"
+author: "Ozge Tugrul Sonmez"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Getting and Cleaning Data CodeBook
+
+###The Data
+
+
+The dataset used for run_analysis.R file includes the following files:
+
+'features_info.txt': Shows information about the variables used on the feature vector.
+
+'features.txt': List of all features.
+
+'activity_labels.txt': Links the class labels with their activity name.
+
+'train/X_train.txt': Training (features) set.
+
+'train/y_train.txt': Training (activities) labels.
+
+'test/X_test.txt': Test (features) set.
+
+'test/y_test.txt': Test (activities) labels.
+
+The following files are available for the train and test data. Their descriptions are equivalent. 
+
+- 'train/subject_train.txt': Each row identifies the subject who performed the activity for each window sample. Its range is from 1 to 30. 
+
+For each record it is provided:
+
+- Triaxial acceleration from the accelerometer (total acceleration) and the estimated body acceleration.
+- Triaxial Angular velocity from the gyroscope. 
+- A 561-feature vector with time and frequency domain variables. 
+- Its activity label. 
+- An identifier of the subject who carried out the experiment.
+
+The activity labels are given:
+
+1 WALKING
+2 WALKING_UPSTAIRS
+3 WALKING_DOWNSTAIRS
+4 SITTING
+5 STANDING
+6 LAYING
+
+Notes: 
+
+- Features are normalized and bounded within [-1,1].
+- Each feature vector is a row on the text file.
+
+###The Variables
+
+The complete variables in the data set are subject, activities and the 561 features in features.txt file.The total number of variables is 563 and the total observations are 10299.
+
+The number of measurements extracted according to including mean and std in their names is 86 and with the variables subject and activities, the total number of extracted variables is 88 with the number of observations 10299.
+
+```{r message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+source("run_analysis.R")
+```
+
+
+
+###The Data Transformation and The Functions Used
+####Operations used to transform data
+
+1- Merges the training and the test sets to create one data set.
+
+2- Extracts only the measurements on the mean and standard deviation for each measurement.
+
+3- Uses descriptive activity names to name the activities in the data set
+
+4- Appropriately labels the data set with descriptive variable names.
+
+5- From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+
+
+####The explanations of functions
+
+The function **download.file()** is used to download UCI HAR Dataset zip file.
+
+The function **read.table()** is used to read .txt files.
+
+The function **write.table()** is used to write .txt file of the tidy data set.
+
+The function **rbind()** combine the rows of training and testing data.
+
+The function **cbind()** combine the columns of sunject, activities and features variable.
+
+The variables are extracted on the mean and standard deviation for each measurement by the **grep()** function. 
+The variables are selected from the complete data set by **select()** function.
+
+The names of the variables are changed and simplified by **gsub()** function and also, the punctuation "..." and the punctuation ".." is replaced with the punctuation ".".
+
+The activity codes are replaced with activity names by **mutate()** and **recode()**functions.
+
+Te summarized tidy data including the means of the measurements grouped by subjects and activities is obtained by using both **dplyr** and **reshape2** libraries. For the **dplyr** package **group_by()** and **summarise_all()** functions are used and for the **reshape2** package **melt()** and **dcast()** functions are used.The same tidy data is obtained by using two different packages.
+
+The features including Mean and Standard deviation with appropriate and simplified labels are given below.
+```{r echo=FALSE}
+
+names(extracted_data)
+```
+
+The tidy data set with the average of each variable for each activity and each subject is given below
+
+```{r echo=FALSE}
+
+tidy_data_set
+```
+
+
